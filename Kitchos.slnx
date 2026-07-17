@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Kitchos.Domain/Kitchos.Domain.csproj" />
+  <Project Path="Kitchos.Infrastructure/Kitchos.Infrastructure.csproj" />
+  <Project Path="Kitchos.Web/Kitchos.Web.csproj" />
+</Solution>
