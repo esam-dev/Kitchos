@@ -1,4 +1,5 @@
 using Kitchos.Infrastructure;
+using Kitchos.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,5 +24,12 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await context.Database.EnsureCreatedAsync();
+    await DbInitializer.SeedAsync(context);
+}
 
 app.Run();
