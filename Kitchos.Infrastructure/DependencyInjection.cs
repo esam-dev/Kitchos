@@ -1,4 +1,6 @@
+using Kitchos.Domain.Interfaces;
 using Kitchos.Infrastructure.Data;
+using Kitchos.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +15,8 @@ public static class DependencyInjection
 
         services.AddDbContext<AppDbContext>(options =>
             options.UseMySQL(connectionString!));
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }
