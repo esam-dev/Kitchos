@@ -1,4 +1,5 @@
 using Kitchos.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kitchos.Infrastructure.Data;
@@ -6,6 +7,12 @@ namespace Kitchos.Infrastructure.Data;
 public static class DbInitializer
 {
     public static async Task SeedAsync(AppDbContext context)
+    {
+        await SeedUnitsAndCategories(context);
+        await SeedRoles(context);
+    }
+
+    private static async Task SeedUnitsAndCategories(AppDbContext context)
     {
         if (await context.UnitsOfMeasure.AnyAsync()) return;
 
@@ -36,6 +43,18 @@ public static class DbInitializer
 
         context.UnitsOfMeasure.AddRange(units);
         context.Categories.AddRange(categories);
+        await context.SaveChangesAsync();
+    }
+
+    private static async Task SeedRoles(AppDbContext context)
+    {
+        if (await context.Roles.AnyAsync()) return;
+
+        context.Roles.AddRange(
+            new IdentityRole { Id = Guid.NewGuid().ToString(), Name = "Admin", NormalizedName = "ADMIN" },
+            new IdentityRole { Id = Guid.NewGuid().ToString(), Name = "User", NormalizedName = "USER" }
+        );
+
         await context.SaveChangesAsync();
     }
 }
