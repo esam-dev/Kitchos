@@ -3,6 +3,16 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Kitchos</h1>
+    <p class="lead">Gestión de recetas, planificación de comidas y lista de compras</p>
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <a class="btn btn-primary btn-lg mt-3" asp-controller="Categories" asp-action="Index">Categorías</a>
+    }
+    else
+    {
+        <a class="btn btn-success btn-lg mt-3" asp-area="Identity" asp-page="/Account/Register">Registrarse</a>
+        <a class="btn btn-outline-primary btn-lg mt-3 ms-2" asp-area="Identity" asp-page="/Account/Login">Iniciar sesión</a>
+    }
 </div>
