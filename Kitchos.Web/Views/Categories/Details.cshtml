@@ -18,6 +18,7 @@
     @if (User.IsInRole("Admin"))
     {
         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Eliminar</a>
     }
-    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
 </div>
